@@ -86,13 +86,6 @@ li.active a, a:hover, a:active {
   transform: translate(-50%, -50%);
 }
 
-.centered-y {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 .distribution-map {
   position: relative;
   width: 100%;
@@ -111,8 +104,8 @@ li.active a, a:hover, a:active {
   outline: none;
   z-index: 0;
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 20px;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
@@ -140,7 +133,7 @@ li.active a, a:hover, a:active {
   padding: 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
-  width: 300px;
+  width: 700px;
   height: 220px;
   color: #e5e5e5;
   z-index: 1;
@@ -158,4 +151,81 @@ li.active a, a:hover, a:active {
 }
 .distribution-map .map-point:active .content a:hover, .distribution-map .map-point:active .content a:active, .distribution-map .map-point:focus .content a:hover, .distribution-map .map-point:focus .content a:active {
   color: #afe1fa;
+}
+
+.map-point {
+  cursor: pointer;
+  outline: none;
+  z-index: 0;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  opacity: 0.8;
+  transform: translate(-50%, -50%);
+  transition: all 0.25s ease-in-out;
+  background: rgba(26, 26, 26, 0.85);
+  border: 2.5px solid #7fcff7;
+  padding: 0;
+  overflow: visible;
+}
+
+.map-point .content {
+  display: block;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  padding: 10px 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  min-width: 150px;
+  white-space: normal;
+  z-index: 10;
+  max-height: 200px; /* contoh tinggi maksimum */
+  overflow-y: auto; /* scroll kalau lebih */
+}
+
+.map-point:hover .content {
+  display: block;
+}
+
+.site-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0px 10px; /* baris, kolum */
+  max-width: 100%;
+  text-align: left;
+}
+
+.site-list p {
+  font-size: 10pt;
+}
+
+.centered-y {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.label-outside {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%) scale(1); /* default */
+  font-weight: bold;
+  color: #fff;
+  background: none;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.site-wrapper {
+  text-align: center;
+}
+
+.map-point:active .label-outside {
+  transform: translateX(-50%) scale(2); /* membesar bila aktif */
+  display: block;
 }
