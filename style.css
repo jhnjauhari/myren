@@ -186,10 +186,6 @@ li.active a, a:hover, a:active {
   overflow-y: auto; /* scroll kalau lebih */
 }
 
-.map-point:hover .content {
-  display: block;
-}
-
 .site-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -225,7 +221,7 @@ li.active a, a:hover, a:active {
   text-align: center;
 }
 
-.map-point:active .label-outside {
+.map-point:focus .label-outside {
   transform: translateX(-50%) scale(2); /* membesar bila aktif */
   display: block;
 }
