@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MYREN Centered Modal Map</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900' rel='stylesheet'>
+  <style>
+    html {
+      background: #1a1a1a;
+      color: #e5e5e5;
+      text-align: center;
+      font-family: "Roboto", Helvetica, sans-serif;
+    }
+
+    body {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 100px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 36pt;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .distribution-map {
+      position: relative;
+      width: 100%;
+      padding: 20px;
+      margin: 0 auto;
+    }
+
+    .distribution-map > img {
+      width: 100%;
+      display: block;
+    }
+
+    .map-point {
+      cursor: pointer;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      opacity: 0.8;
+      transform: translate(-50%, -50%);
+      background: rgba(26, 26, 26, 0.85);
+      border: 2.5px solid #7fcff7;
+    }
+
+    .map-point .content {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: #2a2a2a;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      min-width: 300px;
+      max-width: 80vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .label-outside {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%) scale(1); /* default */
+      font-weight: bold;
+      color: #fff;
+      background: none;
+      white-space: nowrap;
+      pointer-events: none;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>MYREN Interactive Map</h1>
+  <p class="description">Click the points to see modal content at center of the screen.</p>
+
+  <div class="distribution-map">
+    <img src="map.png" alt="">
+
+    <button class="map-point" style="top:15%;left:35%">
+      <div class="content">
+        <h2>A Place</h2>
+        <p>Details shown here in center modal.</p>
+      </div>
+    </button>
+
+    <button class="map-point" style="top:35%;left:50%">
+      <div class="label-outside">SARAWAK</div>
+      <div class="content">
+        <h2>Another Place</h2>
+        <p>More info shown in modal when clicked.</p>
+      </div>
+    </button>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn">X</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const mapPoints = document.querySelectorAll(".map-point");
+    const modal = document.getElementById("modal");
+    const modalBody = document.getElementById("modal-body");
+    const closeBtn = document.querySelector(".close-btn");
+
+    mapPoints.forEach(point => {
+      point.addEventListener("click", () => {
+        const content = point.querySelector(".content");
+        if (content) {
+          modalBody.innerHTML = content.innerHTML;
+          modal.classList.remove("hidden");
+        }
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
